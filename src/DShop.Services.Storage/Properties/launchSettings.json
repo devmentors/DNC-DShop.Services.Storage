@@ -1,0 +1,30 @@
+{
+    "iisSettings": {
+      "windowsAuthentication": false,
+      "anonymousAuthentication": true,
+      "iisExpress": {
+        "applicationUrl": "http://localhost:5008",
+        "sslPort": 0
+      }
+    },
+    "profiles": {
+      "IIS Express": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "launchUrl": "/",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "local"
+        }
+      },
+      "DShop.Services.Storage": {
+        "commandName": "Project",
+        "launchBrowser": true,
+        "launchUrl": "/",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "local"
+        },
+        "applicationUrl": "http://localhost:5008"
+      }
+    }
+  }
+  
