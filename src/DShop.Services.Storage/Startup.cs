@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DShop.Common.Authentication;
 using DShop.Common.Bus.RabbitMq;
-using DShop.Common.Databases.Mongo;
 using DShop.Common.Mvc;
 using DShop.Messages.Events.Identity;
+using DShop.Messages.Events.Products;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace DShop.Services.Storage
 {
@@ -51,9 +44,14 @@ namespace DShop.Services.Storage
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseMvc();
             app.UseRabbitMq()
-                .SubscribeEvent<SignedUp>();
+                .SubscribeEvent<SignedUp>()
+                .SubscribeEvent<ProductCreated>()
+                .SubscribeEvent<ProductUpdated>()
+                .SubscribeEvent<ProductDeleted>();
+
             applicationLifetime.ApplicationStopped.Register(() => Container.Dispose());
         }
     }
