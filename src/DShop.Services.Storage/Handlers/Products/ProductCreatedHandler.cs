@@ -1,5 +1,5 @@
-﻿using DShop.Common.Bus;
-using DShop.Common.Handlers;
+﻿using DShop.Common.Handlers;
+using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Products;
 using System;
 using System.Threading.Tasks;

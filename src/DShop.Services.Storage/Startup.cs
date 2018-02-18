@@ -2,8 +2,8 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DShop.Common.Bus.RabbitMq;
 using DShop.Common.Mvc;
+using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Identity;
 using DShop.Messages.Events.Products;
 using Microsoft.AspNetCore.Builder;

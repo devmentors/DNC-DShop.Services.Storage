@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using DShop.Common.Builders;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace DShop.Services.Storage
 {
@@ -18,9 +10,10 @@ namespace DShop.Services.Storage
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>           
-            ServiceBuilder
-                .Create<Startup>(args)
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseUrls("http://*:5002")
                 .Build();
     }
 }

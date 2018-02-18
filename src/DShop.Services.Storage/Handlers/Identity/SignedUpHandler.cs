@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using DShop.Common.Bus;
 using DShop.Common.Handlers;
+using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Identity;
 
 namespace DShop.Services.Storage.Handlers.Identity
