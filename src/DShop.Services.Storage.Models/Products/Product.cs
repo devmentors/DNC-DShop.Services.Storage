@@ -1,8 +1,9 @@
+using DShop.Messages.Entities;
 using System;
 
 namespace DShop.Services.Storage.Models.Products
 {
-    public class Product
+    public class Product : IIdentifiable
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

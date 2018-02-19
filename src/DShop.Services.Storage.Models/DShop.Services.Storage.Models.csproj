@@ -4,4 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DNC-DShop.Messages\src\DShop.Messages\DShop.Messages.csproj" />
+  </ItemGroup>
+
 </Project>

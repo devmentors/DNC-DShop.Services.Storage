@@ -2,6 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DShop.Common.Mongo;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Identity;
@@ -26,14 +27,16 @@ namespace DShop.Services.Storage
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddDefaultJsonOptions();
+
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
+
             builder.Populate(services);
             builder.AddRabbitMq();
-            //builder.AddMongoDB();
-            Container = builder.Build();
+            builder.AddMongoDB();
 
+            Container = builder.Build();
             return new AutofacServiceProvider(Container);
         }
 
