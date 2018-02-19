@@ -1,16 +1,23 @@
 ﻿using DShop.Common.Handlers;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Products;
-using System;
+using DShop.Services.Storage.Repositories;
 using System.Threading.Tasks;
 
 namespace DShop.Services.Storage.Handlers.Products
 {
     public sealed class ProductDeletedHandler : IEventHandler<ProductDeleted>
     {
+        private readonly IProductsRepository _productsRepository;
+
+        public ProductDeletedHandler(IProductsRepository productsRepository)
+        {
+            _productsRepository = productsRepository;
+        }
+
         public async Task HandleAsync(ProductDeleted @event, ICorrelationContext context)
         {
-            throw new NotImplementedException();
+            await _productsRepository.DeleteAsync(@event.RequestId);
         }
     }
 }

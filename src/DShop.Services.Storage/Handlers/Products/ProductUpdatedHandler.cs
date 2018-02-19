@@ -1,16 +1,28 @@
 ﻿using DShop.Common.Handlers;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Products;
-using System;
+using DShop.Services.Storage.Repositories;
+using DShop.Services.Storage.ServiceForwarders;
+using RestEase;
 using System.Threading.Tasks;
 
 namespace DShop.Services.Storage.Handlers.Products
 {
     public sealed class ProductUpdatedHandler : IEventHandler<ProductUpdated>
     {
+        private readonly IProductsRepository _productsRepository;
+        private readonly IProductsService _productsService;
+
+        public ProductUpdatedHandler(IProductsRepository productsRepository)
+        {
+            _productsRepository = productsRepository;
+            _productsService = RestClient.For<IProductsService>("http://localhost:5001/");
+        }
+
         public async Task HandleAsync(ProductUpdated @event, ICorrelationContext context)
         {
-            throw new NotImplementedException();
+            var product = await _productsService.GetProductByIdAsync(@event.RequestId);
+            await _productsRepository.UpdateAsync(product);
         }
     }
 }
