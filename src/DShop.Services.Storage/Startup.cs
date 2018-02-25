@@ -5,12 +5,15 @@ using Autofac.Extensions.DependencyInjection;
 using DShop.Common.Mongo;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
+using DShop.Messages.Events.Customers;
 using DShop.Messages.Events.Identity;
 using DShop.Messages.Events.Products;
+using DShop.Services.Storage.ServiceForwarders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestEase;
 
 namespace DShop.Services.Storage
 {
@@ -35,6 +38,8 @@ namespace DShop.Services.Storage
             builder.Populate(services);
             builder.AddRabbitMq();
             builder.AddMongoDB();
+            builder.RegisterInstance(RestClient.For<ICustomersService>("http://localhost:5001/"));
+            builder.RegisterInstance(RestClient.For<IProductsService>("http://localhost:5006/"));
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
@@ -51,6 +56,7 @@ namespace DShop.Services.Storage
             app.UseMvc();
             app.UseRabbitMq()
                 .SubscribeEvent<SignedUp>()
+                .SubscribeEvent<CustomerCreated>()
                 .SubscribeEvent<ProductCreated>()
                 .SubscribeEvent<ProductUpdated>()
                 .SubscribeEvent<ProductDeleted>();

@@ -13,10 +13,11 @@ namespace DShop.Services.Storage.Handlers.Products
         private readonly IProductsRepository _productsRepository;
         private readonly IProductsService _productsService;
 
-        public ProductCreatedHandler(IProductsRepository productsRepository)
+        public ProductCreatedHandler(IProductsRepository productsRepository,
+            IProductsService productsService)
         {
             _productsRepository = productsRepository;
-            _productsService = RestClient.For<IProductsService>("http://localhost:5001/");
+            _productsService = productsService;
         }
 
         public async Task HandleAsync(ProductCreated @event, ICorrelationContext context)

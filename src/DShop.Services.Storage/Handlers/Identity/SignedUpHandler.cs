@@ -9,7 +9,7 @@ namespace DShop.Services.Storage.Handlers.Identity
     {
         public async Task HandleAsync(SignedUp @event, ICorrelationContext context)
         {
-            throw new System.NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }
