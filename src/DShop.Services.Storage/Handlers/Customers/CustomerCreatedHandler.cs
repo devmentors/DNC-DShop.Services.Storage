@@ -11,6 +11,7 @@ namespace DShop.Services.Storage.Handlers.Customers
     {
         private readonly ICustomersRepository _customersRepository;
         private readonly ICustomersService _customersService;
+        
         public CustomerCreatedHandler(ICustomersRepository customersRepository,
             ICustomersService customersService)
         {
