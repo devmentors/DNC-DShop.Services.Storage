@@ -8,6 +8,8 @@ using DShop.Common.RabbitMq;
 using DShop.Messages.Events.Customers;
 using DShop.Messages.Events.Identity;
 using DShop.Messages.Events.Products;
+using DShop.Services.Storage.Models.Customers;
+using DShop.Services.Storage.Models.Products;
 using DShop.Services.Storage.ServiceForwarders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +40,8 @@ namespace DShop.Services.Storage
             builder.Populate(services);
             builder.AddRabbitMq();
             builder.AddMongoDB();
+            builder.AddMongoDBRepository<Customer>("Customers");
+            builder.AddMongoDBRepository<Product>("Products");
             builder.RegisterInstance(RestClient.For<ICustomersService>("http://localhost:5001/"));
             builder.RegisterInstance(RestClient.For<IProductsService>("http://localhost:5006/"));
 
