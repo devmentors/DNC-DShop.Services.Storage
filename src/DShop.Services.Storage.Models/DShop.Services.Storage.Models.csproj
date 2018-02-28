@@ -7,5 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\DNC-DShop.Messages\src\DShop.Messages\DShop.Messages.csproj" />
   </ItemGroup>
-
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\..\DNC-DShop.Common\src\DShop.Common\DShop.Common.csproj" />
+  </ItemGroup>
 </Project>
