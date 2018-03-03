@@ -44,6 +44,7 @@ namespace DShop.Services.Storage
             builder.AddMongoDBRepository<Product>("Products");
             builder.RegisterInstance(RestClient.For<ICustomersService>("http://localhost:5001/"));
             builder.RegisterInstance(RestClient.For<IProductsService>("http://localhost:5006/"));
+            builder.RegisterInstance(RestClient.For<IOrdersService>("http://localhost:5002/"));
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
