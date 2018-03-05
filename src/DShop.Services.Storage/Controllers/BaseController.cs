@@ -12,7 +12,7 @@ namespace DShop.Services.Storage.Controllers
             {
                 return Ok(model);
             }
-
+             
             return NotFound();
         }
 
