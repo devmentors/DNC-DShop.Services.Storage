@@ -8,12 +8,12 @@ namespace DShop.Services.Storage.Controllers
     {
         protected IActionResult OkOrNotFound<T>(T model)
         {
-            if (model != null)
+            if (model == null)
             {
-                return Ok(model);
+                return NotFound();
             }
-             
-            return NotFound();
+
+            return Ok(model);
         }
 
         protected IActionResult Collection<T>(PagedResult<T> pagedResult)
