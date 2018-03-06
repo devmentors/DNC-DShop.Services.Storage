@@ -1,6 +1,9 @@
-﻿using DShop.Services.Storage.Repositories;
+﻿using DShop.Services.Storage.Models.Orders;
+using DShop.Services.Storage.Models.Queries;
+using DShop.Services.Storage.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DShop.Services.Storage.Controllers
@@ -21,13 +24,25 @@ namespace DShop.Services.Storage.Controllers
             _customersRepository = customersRepository;
         }
 
+        [HttpGet("")]
+        public async Task<IActionResult> GetAsync([FromQuery] BrowseOrders query)
+            => Collection(await _ordersRepository.BrowseAsync(query));
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync([FromQuery] Guid id)
         {
             var order = await _ordersRepository.GetAsync(id);
+            var products = await _productsRepository.FindAsync(p => order.ProductIds.Contains(p.Id));
+            var customer = await _customersRepository.GetAsync(order.CustomerId);
 
-            //TODO
+            var orderDetails = new OrderDetails
+            {
+                Order = order,
+                Products = products,
+                Customer = customer
+            };
 
-            return Ok();
+            return Ok(orderDetails);
         }
     }
 }
