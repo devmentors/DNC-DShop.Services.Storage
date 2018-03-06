@@ -1,6 +1,8 @@
 ﻿using DShop.Common.Mongo;
 using DShop.Services.Storage.Models.Products;
 using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace DShop.Services.Storage.Repositories
@@ -16,7 +18,10 @@ namespace DShop.Services.Storage.Repositories
 
         public async Task<Product> GetAsync(Guid id)
             => await _repository.GetAsync(id);
-        
+
+        public async Task<IEnumerable<Product>> FindAsync(Expression<Func<Product, bool>> predicate)
+            => await _repository.FindAsync(predicate);
+
         public async Task CreateAsync(Product product)
             => await _repository.CreateAsync(product);
 
