@@ -1,5 +1,7 @@
 ﻿using DShop.Common.Mongo;
+using DShop.Common.Types;
 using DShop.Services.Storage.Models.Products;
+using DShop.Services.Storage.Models.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -21,6 +23,12 @@ namespace DShop.Services.Storage.Repositories
 
         public async Task<IEnumerable<Product>> FindAsync(Expression<Func<Product, bool>> predicate)
             => await _repository.FindAsync(predicate);
+
+        public async Task<PagedResult<Product>> BrowseAsync(BrowseProducts query)
+            => await _repository.BrowseAsync(p => 
+                (query.Vendor != null? p.Vendor == query.Vendor : true) &&
+                (query.PriceTo > 0m? p.Price >= query.PriceFrom : true) && 
+                (query.PriceTo > 0m? p.Price <= query.PriceTo : true), query);
 
         public async Task CreateAsync(Product product)
             => await _repository.CreateAsync(product);
