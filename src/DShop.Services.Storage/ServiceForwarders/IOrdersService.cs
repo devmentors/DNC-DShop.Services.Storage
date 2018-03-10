@@ -7,7 +7,7 @@ namespace DShop.Services.Storage.ServiceForwarders
 {
     public interface IOrdersService
     {
-        [Get("orders/{id}")]
+        [Get("/orders/{id}")]
         Task<Order> GetByIdAsync([Path] Guid id);
     }
 }

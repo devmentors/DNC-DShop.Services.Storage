@@ -7,7 +7,7 @@ namespace DShop.Services.Storage.ServiceForwarders
 {
     public interface IProductsService
     {
-        [Get("api/Products/{id}")]
+        [Get("/products/{id}")]
         Task<Product> GetProductByIdAsync([Path] Guid id);
     }
 }

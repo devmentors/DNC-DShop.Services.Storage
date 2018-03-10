@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestEase;
+using DShop.Common.RestEase;
 
 namespace DShop.Services.Storage
 {
@@ -42,9 +43,9 @@ namespace DShop.Services.Storage
             builder.AddMongoDB();
             builder.AddMongoDBRepository<Customer>("Customers");
             builder.AddMongoDBRepository<Product>("Products");
-            builder.RegisterInstance(RestClient.For<ICustomersService>("http://localhost:5001/"));
-            builder.RegisterInstance(RestClient.For<IProductsService>("http://localhost:5006/"));
-            builder.RegisterInstance(RestClient.For<IOrdersService>("http://localhost:5002/"));
+            builder.RegisterServiceForwarder<ICustomersService>("customers-service");
+            builder.RegisterServiceForwarder<IProductsService>("products-service");
+            builder.RegisterServiceForwarder<IOrdersService>("orders-service");
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
