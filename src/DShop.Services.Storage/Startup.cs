@@ -5,6 +5,7 @@ using Autofac.Extensions.DependencyInjection;
 using DShop.Common.Mongo;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
+using DShop.Common.Redis;
 using DShop.Messages.Events.Customers;
 using DShop.Messages.Events.Identity;
 using DShop.Messages.Events.Products;
@@ -33,7 +34,7 @@ namespace DShop.Services.Storage
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddDefaultJsonOptions();
-
+            services.AddRedisCache();
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
