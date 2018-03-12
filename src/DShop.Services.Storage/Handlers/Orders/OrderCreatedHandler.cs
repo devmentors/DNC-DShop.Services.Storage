@@ -20,7 +20,7 @@ namespace DShop.Services.Storage.Handlers.Orders
 
         public async Task HandleAsync(OrderCreated @event, ICorrelationContext context)
         {
-            var order = await _ordersService.GetByIdAsync(@event.RequestId);
+            var order = await _ordersService.GetByIdAsync(@event.Id);
             await _ordersRepository.CreateAsync(order);
         }
     }

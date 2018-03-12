@@ -17,7 +17,7 @@ namespace DShop.Services.Storage.Handlers.Products
 
         public async Task HandleAsync(ProductDeleted @event, ICorrelationContext context)
         {
-            await _productsRepository.DeleteAsync(@event.RequestId);
+            await _productsRepository.DeleteAsync(@event.Id);
         }
     }
 }

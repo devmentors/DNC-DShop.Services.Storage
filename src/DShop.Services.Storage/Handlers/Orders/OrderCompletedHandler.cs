@@ -18,7 +18,7 @@ namespace DShop.Services.Storage.Handlers.Orders
 
         public async Task HandleAsync(OrderCompleted @event, ICorrelationContext context)
         {
-            var order = await _ordersRepository.GetAsync(@event.RequestId);
+            var order = await _ordersRepository.GetAsync(@event.Id);
             order.Status = OrderStatus.Completed;
 
             await _ordersRepository.UpdateAsync(order);

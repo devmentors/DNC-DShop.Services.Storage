@@ -22,7 +22,7 @@ namespace DShop.Services.Storage.Handlers.Products
 
         public async Task HandleAsync(ProductUpdated @event, ICorrelationContext context)
         {
-            var product = await _productsService.GetProductByIdAsync(@event.RequestId);
+            var product = await _productsService.GetProductByIdAsync(@event.Id);
             await _productsRepository.UpdateAsync(product);
         }
     }
