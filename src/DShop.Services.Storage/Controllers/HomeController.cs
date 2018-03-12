@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DShop.Services.Storage.Controllers
 {
+    [Route("")]
     public class HomeController : BaseController
     {
-        [HttpGet("")]
+        [HttpGet]
         public IActionResult Get() => Ok("DShop Storage Service");
     }
 }
