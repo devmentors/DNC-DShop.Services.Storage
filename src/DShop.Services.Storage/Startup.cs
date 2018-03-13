@@ -61,12 +61,16 @@ namespace DShop.Services.Storage
             }
 
             app.UseMvc();
+            app.UseErrorHandler();
             app.UseRabbitMq()
                 .SubscribeEvent<SignedUp>()
                 .SubscribeEvent<CustomerCreated>()
                 .SubscribeEvent<ProductCreated>()
                 .SubscribeEvent<ProductUpdated>()
-                .SubscribeEvent<ProductDeleted>();
+                .SubscribeEvent<ProductDeleted>()
+                .SubscribeEvent<ProductAddedToCart>()
+                .SubscribeEvent<ProductDeletedFromCart>()
+                .SubscribeEvent<CartCleared>();
 
             applicationLifetime.ApplicationStopped.Register(() => Container.Dispose());
         }
