@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using DShop.Common.Mvc;
 
 namespace DShop.Services.Storage
 {
@@ -13,6 +14,7 @@ namespace DShop.Services.Storage
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseLockbox()
                 .Build();
     }
 }
