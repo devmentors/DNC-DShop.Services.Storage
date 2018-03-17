@@ -18,6 +18,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestEase;
 using DShop.Common.RestEase;
+using DShop.Services.Storage.Models.Orders;
+using DShop.Messages.Events.Orders;
 
 namespace DShop.Services.Storage
 {
@@ -44,6 +46,7 @@ namespace DShop.Services.Storage
             builder.AddMongoDB();
             builder.AddMongoDBRepository<Customer>("Customers");
             builder.AddMongoDBRepository<Product>("Products");
+            builder.AddMongoDBRepository<Order>("Orders");
             builder.RegisterServiceForwarder<ICustomersService>("customers-service");
             builder.RegisterServiceForwarder<IProductsService>("products-service");
             builder.RegisterServiceForwarder<IOrdersService>("orders-service");
@@ -70,7 +73,10 @@ namespace DShop.Services.Storage
                 .SubscribeEvent<ProductDeleted>()
                 .SubscribeEvent<ProductAddedToCart>()
                 .SubscribeEvent<ProductDeletedFromCart>()
-                .SubscribeEvent<CartCleared>();
+                .SubscribeEvent<CartCleared>()
+                .SubscribeEvent<OrderCreated>()
+                .SubscribeEvent<OrderCanceled>()
+                .SubscribeEvent<OrderCompleted>();
 
             applicationLifetime.ApplicationStopped.Register(() => Container.Dispose());
         }
