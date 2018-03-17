@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DShop.Services.Storage.Controllers
 {
-    [Route("[controller]")]
     public class CustomersController : BaseController
     {
         private readonly ICustomersRepository _repository;
