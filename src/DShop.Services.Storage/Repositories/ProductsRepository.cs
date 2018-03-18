@@ -26,7 +26,7 @@ namespace DShop.Services.Storage.Repositories
 
         public async Task<PagedResult<Product>> BrowseAsync(BrowseProducts query)
             => await _repository.BrowseAsync(p =>
-                p.Vendor.Contains(query.Vendor) && p.Price >= query.PriceFrom && p.Price <= query.PriceTo, query);
+                p.Price >= query.PriceFrom && p.Price <= query.PriceTo, query);
 
         public async Task CreateAsync(Product product)
             => await _repository.CreateAsync(product);
