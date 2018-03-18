@@ -24,7 +24,7 @@ namespace DShop.Services.Storage.Handlers.Customers
 
         public async Task HandleAsync(ProductAddedToCart @event, ICorrelationContext context)
         {
-            var cart = await _cache.GetCartAsync(@event.UserId);
+            var cart = await _cache.GetCartAsync(@event.CustomerId);
             var product = await _productsRepository.GetAsync(@event.ProductId);
             var item = cart.Items.SingleOrDefault(x => x.ProductId == @event.ProductId);
             if (item == null)
@@ -41,7 +41,7 @@ namespace DShop.Services.Storage.Handlers.Customers
             {
                 item.Quantity += @event.Quantity;
             }
-            await _cache.SetCartAsync(@event.UserId, cart);
+            await _cache.SetCartAsync(@event.CustomerId, cart);
         }
     }
 }

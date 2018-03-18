@@ -27,9 +27,9 @@ namespace DShop.Services.Storage.Handlers.Customers
 
         public async Task HandleAsync(CustomerCreated @event, ICorrelationContext context)
         {
-            var customer = await _customersService.GetByIdAsync(@event.UserId);
+            var customer = await _customersService.GetByIdAsync(@event.Id);
             await _customersRepository.CreateAsync(customer);
-            await _cache.SetCartAsync(@event.UserId, new Cart());
+            await _cache.SetCartAsync(@event.Id, new Cart());
         }
     }
 }

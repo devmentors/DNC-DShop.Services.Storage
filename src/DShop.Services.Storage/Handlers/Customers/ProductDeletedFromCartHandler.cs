@@ -20,14 +20,14 @@ namespace DShop.Services.Storage.Handlers.Customers
 
         public async Task HandleAsync(ProductDeletedFromCart @event, ICorrelationContext context)
         {
-            var cart = await _cache.GetCartAsync(@event.UserId);
+            var cart = await _cache.GetCartAsync(@event.CustomerId);
             var item = cart.Items.SingleOrDefault(x => x.ProductId == @event.ProductId);
             if (item == null)
             {
                 return;
             }
             cart.Items.Remove(item);
-            await _cache.SetCartAsync(@event.UserId, cart);
+            await _cache.SetCartAsync(@event.CustomerId, cart);
         }
     }
 }
