@@ -14,7 +14,12 @@ namespace DShop.Services.Storage.Services
         }
 
         public async Task<T> GetAsync<T>(string key)
-            => JsonConvert.DeserializeObject<T>(await _cache.GetStringAsync(key));
+        {
+            var value = await _cache.GetStringAsync(key);
+
+            return string.IsNullOrWhiteSpace(value) ? default(T) : 
+                JsonConvert.DeserializeObject<T>(await _cache.GetStringAsync(key));
+        }
 
         public async Task SetAsync<T>(string key, T value)
             => await _cache.SetStringAsync(key, JsonConvert.SerializeObject(value));
