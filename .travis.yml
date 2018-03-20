@@ -12,8 +12,9 @@ before_script:
 script:
   - ./scripts/build.sh
 after_success:
-  - ./scripts/publish.sh
   - ./scripts/pack.sh
+  - ./scripts/dotnet-publish.sh
+  - ./scripts/docker-publish.sh
 notifications:
   email:
     on_success: never
