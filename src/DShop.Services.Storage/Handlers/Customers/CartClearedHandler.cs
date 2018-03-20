@@ -20,9 +20,7 @@ namespace DShop.Services.Storage.Handlers.Customers
 
         public async Task HandleAsync(CartCleared @event, ICorrelationContext context)
         {
-            var cart = await _cache.GetCartAsync(@event.CustomerId);
-            cart.Items.Clear();
-            await _cache.SetCartAsync(@event.CustomerId, cart);
+            await _cache.ClearCartAsync(@event.CustomerId);
         }
     }
 }
