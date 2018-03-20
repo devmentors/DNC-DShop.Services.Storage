@@ -6,7 +6,7 @@ namespace DShop.Services.Storage.Controllers
     [Route("[controller]")]
     public abstract class BaseController : Controller
     {
-        protected IActionResult OkOrNotFound<T>(T model)
+        protected IActionResult Single<T>(T model)
         {
             if (model == null)
             {
@@ -23,7 +23,7 @@ namespace DShop.Services.Storage.Controllers
                 return NotFound();
             }
 
-            return Ok(pagedResult.Items);
+            return Ok(pagedResult);
         }
     }
 }

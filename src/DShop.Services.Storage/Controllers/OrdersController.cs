@@ -24,12 +24,12 @@ namespace DShop.Services.Storage.Controllers
             _customersRepository = customersRepository;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> GetAsync([FromQuery] BrowseOrders query)
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
             => Collection(await _ordersRepository.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync([FromQuery] Guid id)
+        public async Task<IActionResult> Get([FromQuery] Guid id)
         {
             var order = await _ordersRepository.GetAsync(id);
             var products = await _productsRepository.FindAsync(p => order.ProductIds.Contains(p.Id));
@@ -42,7 +42,7 @@ namespace DShop.Services.Storage.Controllers
                 Customer = customer
             };
 
-            return Ok(orderDetails);
+            return Single(orderDetails);
         }
     }
 }

@@ -19,6 +19,6 @@ namespace DShop.Services.Storage.Controllers
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => OkOrNotFound(await _cache.GetCartAsync(id));
+            => Single(await _cache.GetCartAsync(id));
     }
 }

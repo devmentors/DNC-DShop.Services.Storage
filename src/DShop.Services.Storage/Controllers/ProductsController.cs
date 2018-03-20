@@ -17,12 +17,12 @@ namespace DShop.Services.Storage.Controllers
             _productsRepository = productsRepository;
         }
 
-        [HttpGet("")]
-        public async Task<PagedResult<Product>> BrowseAsync(BrowseProducts query)
-            => await _productsRepository.BrowseAsync(query);
+        [HttpGet]
+        public async Task<IActionResult> Get(BrowseProducts query)
+            => Collection(await _productsRepository.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<Product> GetAsync(Guid id)
-            => await _productsRepository.GetAsync(id);
+        public async Task<IActionResult> Get(Guid id)
+            => Single(await _productsRepository.GetAsync(id));
     }
 }

@@ -15,12 +15,12 @@ namespace DShop.Services.Storage.Controllers
             _repository = repository;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BrowseCustomers query)
             => Collection(await _repository.BrowseAsync(query));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => OkOrNotFound(await _repository.GetAsync(id));
+            => Single(await _repository.GetAsync(id));
     }
 }
