@@ -29,7 +29,7 @@ namespace DShop.Services.Storage.Controllers
             => Collection(await _ordersRepository.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromQuery] Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var order = await _ordersRepository.GetAsync(id);
             var products = await _productsRepository.FindAsync(p => order.ProductIds.Contains(p.Id));
